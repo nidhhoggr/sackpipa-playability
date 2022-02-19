@@ -1,0 +1,12 @@
+[user]
+  email = persie.joseph@gmail.com
+  name = Nidhhoggr
+[core]
+	repositoryformatversion = 0
+	filemode = true
+	bare = false
+	logallrefupdates = true
+	ignorecase = true
+[remote "origin"]
+	url = git@nid.github.com:nidhhoggr/sackpipa-playability.git
+	fetch = +refs/heads/*:refs/remotes/origin/*
