@@ -22,7 +22,6 @@ const instrumentOptions = {
   pitchToNoteName: abcjs.synth.pitchToNoteName
 }
 
-
 let instrument;
 debug("Testing functional instrument options");
 instrument = new Instrument(instrumentOptions);
@@ -44,7 +43,7 @@ new ABCSong({
       const instrument = new Instrument(instrumentOptions);
       const compatibility = abcSong.getCompatibility({instrument});
       assert.deepEqual(compatibility.compatiblePitches.compatible, [71, 72, 74, 76, 67, 69, 66, 64, 62]);
-      assert.deepEqual(compatibility.pitchReached,{ min: 62, max: 76 });
+      assert.deepEqual(compatibility.pitchRange,{ min: 62, max: 76, total: 14 });
       debug("Test 1 success: the abc was compatible without any modifications");
     }});
   }
@@ -58,7 +57,7 @@ new ABCSong({
       const instrument = new Instrument(instrumentOptions);
       const compatibility = abcSong.getCompatibility({instrument});
       assert.deepEqual(compatibility.compatiblePitches.compatible, [62, 64, 66, 67, 69, 71, 74, 72, 76]);
-      assert.deepEqual(compatibility.pitchReached,{ min: 62, max: 76 });
+      assert.deepEqual(compatibility.pitchRange,{ min: 62, max: 76, total: 14});
       assert.deepEqual(compatibility.compatiblePitches.incompatible, [73, 75]);
       debug("Test 2 success: the abc was partially incompatible without any modifications");
     }});
@@ -68,7 +67,7 @@ new ABCSong({
       const instrument = new Instrument(opts);
       const compatibility = abcSong.getCompatibility({instrument});
       assert.deepEqual(compatibility.compatiblePitches.compatible, [62, 64, 66, 67, 69, 71, 73, 74, 76]);
-      assert.deepEqual(compatibility.pitchReached,{ min: 62, max: 76 });
+      assert.deepEqual(compatibility.pitchRange,{ min: 62, max: 76, total: 14});
       assert.deepEqual(compatibility.compatiblePitches.incompatible, [72, 75]);
       debug("Test 3 success: the abc was partially incompatible without the first group plugged");
     }});
@@ -78,7 +77,7 @@ new ABCSong({
       const instrument = new Instrument(opts);
       const compatibility = abcSong.getCompatibility({instrument});
       assert.deepEqual(compatibility.compatiblePitches.compatible, [62, 64, 66, 67, 69, 71, 73, 74, 72, 76]);
-      assert.deepEqual(compatibility.pitchReached,{ min: 62, max: 76 });
+      assert.deepEqual(compatibility.pitchRange,{ min: 62, max: 76, total: 14});
       assert.deepEqual(compatibility.compatiblePitches.incompatible, [75]);
       debug("Test 4 success: the abc was partially compatible when canPlayUnpluggedGroupsIndividually enabled and ability to squeeze high E");
     }});

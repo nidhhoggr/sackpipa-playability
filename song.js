@@ -2,6 +2,7 @@ const _ = require("lodash");
 const { possibleTunings } = require("./instrument");
 const debug = require("debug")("sp:song");
 const fs = require("fs");
+const abcTransposer = require("abc-transposer");
 
 function loadFromFile(filename, cb) {
   fs.readFile(filename, (error, data) => {
@@ -98,10 +99,8 @@ ABCSong.prototype.lineIterator = function(perform) {
 
 ABCSong.prototype.load = function({onFinish} = {}) {
   let _tmpAbc = [];
-  let abcWasModified = false;
   this.lineIterator( (line, {key, isLastLine}) => {
     const infoFieldKey = line.isInfoField();
-    let matched = false, lineWasModified = false;
     switch (infoFieldKey) {
       case "Media": 
         this.media = this.media || line.substring(2);
@@ -109,55 +108,12 @@ ABCSong.prototype.load = function({onFinish} = {}) {
       case "Tune Title":
         this.name = this.name || line.substring(2);
         break;
-      case "Key":
-        if (this.transposition) return;
-        //note, this is not to be confused with the native directive
-        //for transposition which is spelled "transpose=[integer]"
-        //this allows leveraging of both simultaneously or one or 
-        //the other exclusively. trust that you will need to experiment
-        //with all different permutations depending on the song and
-        //its musical composition
-        matched = line.match(/transposition=(0|-?[1-9])/);
-        let transposition = 0;
-        if (matched?.[1]) {
-          transposition = parseInt(matched[1]);
-          this.transposition = transposition;
-        }
-        
-        matched = line.match(/fgp=(0|1)/);
-        let fgp = 0;
-        if (matched?.[1]) {
-          fgp = parseInt(matched[1]);
-          this.fgp = fgp;
-        }
-
-        matched = line.match(/sgp=(0|1)/);
-        let sgp = 0;
-        if (matched?.[1]) {
-          sgp = parseInt(matched[1]);
-          this.sgp = sgp;
-        }
-
-        matched = line.match(/tuning=(0|1|2)/);//@TODO make dynamic to match any tuning key
-        let tuning = 0;
-        if (matched?.[1]) {
-          tuning = parseInt(matched[1]);
-          this.tuning = tuning;
-          this._tuning = possibleTunings[tuning];
-        }
-
-        break;
     }
-    
-    if (!lineWasModified) _tmpAbc[key] = line;
-
-    if (isLastLine && abcWasModified) {
-      this.abc = _tmpAbc.join("\n");
+    if(isLastLine) {
+      if(!this.rendered) this.renderHeadless();
+      onFinish?.({abcSong: this});
     }
   });
-
-  if(!this.rendered) this.renderHeadless();
-  onFinish?.({abcSong: this});
 }
 
 ABCSong.prototype.renderHeadless = function() {
@@ -266,7 +222,49 @@ ABCSong.prototype.getInformationByFieldName = function({fieldName, flatten = tru
   }
 }
 
+ABCSong.prototype.findIdealTransposition = function({compatibility, instrument}) {
+  if (!compatibility) compatibility = abcSong.getCompatibility({instrument});
+  const topPadding = instrument.pitchRange.max - compatibility.pitchRange.max;
+  const bottomPadding = compatibility.pitchRange.min - instrument.pitchRange.min;
+  debug({topPadding, bottomPadding});
+  if (topPadding < 0) {
+    const by = Math.floor(topPadding / 2);
+    return (by == 0) ? -1 : by;
+  }
+  else if(bottomPadding < 0) {
+    const by = Math.floor(Math.abs(bottomPadding) / 2);
+    return (by == 0) ? 1 : by;
+  }
+}
+
 ABCSong.prototype.setTransposition = function(semitones, cb) {
+  if (semitones < 0) {
+    this.abc = abcTransposer.transposeDown({toProcess: this.abc});
+    debug(this.abc);
+    //were done
+    if ((semitones + 1) == 0) {
+      cb({abc: this.abc});
+    }
+    else {
+      this.setTransposition(semitones + 1, cb);
+    }
+  }
+  else if (semitones > 0) {
+    this.abc = abcTransposer.transposeUp({toProcess: this.abc});
+    debug(this.abc);
+    //were done
+    if ((semitones - 1) == 0) {
+      cb({abc: this.abc});
+    }
+    else {
+      this.setTransposition(semitones - 1, cb);
+    }
+  }
+}
+
+
+//this method has frequent bugs
+ABCSong.prototype.setTranspositionUsingAbcjs = function(semitones, cb) {
   const fieldKey = this.options.infoFieldKeyMapping["key"];
   const stringReplacement = `transpose=${semitones}`;
   let isSet = false;
@@ -296,38 +294,56 @@ ABCSong.prototype.setTransposition = function(semitones, cb) {
   });
 }
 
-ABCSong.prototype.setNoteSequence = function({onFinish}) {
+ABCSong.prototype.setNoteSequence = function({onFinish, onError}) {
   this.entireNoteSequence = [];
   const lines = this.rendered.lines;
+  if (!lines.length) return onError(new Error("this song is lineless"))
   lines.map((l, k) => {
-    l.staff[0].voices[0].map((line, j) => {
-      const notes = l.staff[0].voices[0];
-      if (line.midiPitches) {
-        const pitchIndex = line.midiPitches[0].pitch;
-        const noteName = this.abcjs.synth.pitchToNoteName[pitchIndex];
-        const ensIndex = this.entireNoteSequence.push({
-          noteName,
-          pitchIndex,
-        });
-      }
-      else if(lines.length == k + 1 && notes.length == j + 1) {
-        onFinish();
-      }
-    });
+    try {
+      l.staff[0].voices[0].map((line, j) => {
+        const notes = l.staff[0].voices[0];
+        if (line.midiPitches) {
+          if(!line.midiPitches[0]) {
+            debug("found an empty midipitch");
+          }
+          else {
+            const pitchIndex = line.midiPitches[0].pitch;
+            const noteName = this.abcjs.synth.pitchToNoteName[pitchIndex];
+            const ensIndex = this.entireNoteSequence.push({
+              noteName,
+              pitchIndex,
+            });
+          }
+        }
+        if(lines.length == k + 1 && notes.length == j + 1) {
+          onFinish();
+        }
+      });
+    } catch(err) {
+      onError(err);
+    }
   });
 }
 
+
 ABCSong.prototype.getCompatibility = function({instrument}) {
+
   const compatiblePitches = instrument.getCompatiblePitches({abcSong: this});
+  const playablePitches = this.getDistinctPitches();
+  const pitchRange = {
+    min: _.min(playablePitches),
+    max: _.max(playablePitches),
+  }
+  pitchRange.total = pitchRange.max - pitchRange.min;
   return {
     playableNotes: this.getDistinctNotes(),
-    playablePitches: this.getDistinctPitches(),
+    playablePitches,
     compatibleNotes: instrument.getCompatibleNotes({abcSong: this}),
     compatiblePitches,
-    pitchReached: {
-      min: _.min(compatiblePitches.compatible),
-      max: _.max(compatiblePitches.compatible),
-    }
+    pitchRange,
+    canSongBeInRange: () => (pitchRange.total <= instrument.pitchRange.total),
+    isSongInRange: () => (pitchRange.min >= instrument.pitchRange.min && pitchRange.max <= instrument.pitchRange.max),
+    isCompatible: (compatiblePitches.incompatible.length == 0)
   };
 }
 

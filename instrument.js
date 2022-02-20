@@ -3,6 +3,10 @@ const possibleTunings = ["E/A","D/G","C/F"];
 
 const playableExtraNotesOptions = {
   0: {
+    "61": {
+      "note_name": "Db",
+      "description": "This is possible on chanter with two holes in the bottom pinky scallop, both of which need covered to play D.",
+    },
     "63": {
       "note_name": "Eb",
       "description": "Half cover the first bottom scallop with your pinky (E).",
@@ -37,7 +41,6 @@ function Instrument({
   canPlayUnpluggedGroupsIndividually = false,//an advanced technique that we disable by default
   isFirstGroupPlugged = true,
   isSecondGroupPlugged = true,
-  pitchToNoteName,//utility function to do what it says
 }) {
   this.dronesSynth = dronesSynth;
   this.possibleTunings = possibleTunings;
@@ -48,7 +51,14 @@ function Instrument({
   this.isSecondGroupPlugged = isSecondGroupPlugged;
   this.tuningKeyIndex = tuningKeyIndex;
   this.tuningKey = this.possibleTunings[tuningKeyIndex];
-  this.pitchToNoteName = pitchToNoteName;
+  const playableNotes = this.getPlayableNotes({pitchesOnly: true});
+  const minPlayableNote = _.min(playableNotes);
+  const maxPlayableNote = _.max(playableNotes);
+  this.pitchRange = {
+    min: minPlayableNote,
+    max: maxPlayableNote,
+    total: maxPlayableNote - minPlayableNote
+  }
 }
 
 module.exports = {
@@ -208,24 +218,10 @@ Instrument.prototype.getPlayableNotes = function getPlayableNotes({tuningKey, no
   return notes;
 }
 
-
-//@TODO this need  to use pitch comparison, note string comparison by note name
 Instrument.prototype.getCompatibleNotes = function getCompatibleNotes({abcSong}) {
   const mapToNoteNames = (arr) => {
-    return arr.map((a) => this.pitchToNoteName[a]);
+    return arr.map((a) => abcSong.abcjs.synth.pitchToNoteName[a]);
   }
-  /*
-  const playableSong = abcSong.getDistinctNotes();
-  const playableTuning = this.getPlayableNotes({"notesOnly": true});
-  const compatible = _.intersection(playableSong, playableTuning);
-  const _incompatible = _.xor(playableSong, playableTuning)
-  return {
-    compatible,//notes in the song playable on the chnater
-    _incompatible,//notes only in the song OR the playlist
-    incompatible: _.difference(playableSong, playableTuning),
-    unplayable: _.difference(playableTuning, playableSong),//these are notes that exist in the tuning but not the song
-  }
-  */
   const {compatible, _incompatible, incompatible, unplayable} = this.getCompatiblePitches({abcSong});
   return {
     compatible: mapToNoteNames(compatible),//notes in the song playable on the chnater
@@ -249,7 +245,6 @@ Instrument.prototype.getCompatiblePitches = function getCompatiblePitches({abcSo
     unplayable: _.difference(playableTuning, playableSong),//these are notes that exist in the tuning but not the song
   }
 }
-
 
 Instrument.prototype.setTuningKey = function setTuningKey(tuningKey = null) {
   if (!tuningKey) {
