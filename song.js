@@ -175,15 +175,6 @@ ABCSong.prototype.insertInformationField = function({line}) {
   return this.abc.includes(line);
 }
 
-/*
-   noteName,
-   pitchIndex,
-   duration,
-   durationReached,
-   _percentage: percentage,
-   percentage: percentage.toString().replace(".","_"*
-*/
-
 //@TODO MEmoize as an instance of currentSong
 ABCSong.prototype.getDistinctNotes = function() {
   if (!this.entireNoteSequence) return;
@@ -299,6 +290,7 @@ ABCSong.prototype.setNoteSequence = function({onFinish, onError}) {
   const lines = this.rendered.lines;
   if (!lines.length) return onError(new Error("this song is lineless"))
   lines.map((l, k) => {
+    if (!l.staff) return;
     try {
       l.staff[0].voices[0].map((line, j) => {
         const notes = l.staff[0].voices[0];

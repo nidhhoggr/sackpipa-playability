@@ -36,7 +36,7 @@ instrument = new Instrument({...instrumentOptions, playableExtraNotes: {}, isFir
 assert.deepEqual(instrument.getPlayableNotes({pitchesOnly: true}), [62, 74, 64, 76, 66, 67, 68, 69, 71, 73]);
 
 new ABCSong({
-  file: __dirname + "/../abc/KlovsjoBrudmarsch.abc",
+  file: __dirname + "/abc/KlovsjoBrudmarsch.abc",
   abcjs,
   onFinish: ({abcSong}) => { 
     abcSong.setNoteSequence({onFinish: () => {
@@ -50,7 +50,7 @@ new ABCSong({
 });
 
 new ABCSong({
-  file: __dirname + "/../abc/karolinermarschen.abc",
+  file: __dirname + "/abc/karolinermarschen.abc",
   abcjs,
   onFinish: ({abcSong}) => { 
     abcSong.setNoteSequence({onFinish: () => {
