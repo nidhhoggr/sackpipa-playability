@@ -37,16 +37,32 @@ function processFile({file, instrument}) {
 
 (async() => {
   let transposed = await processFile({
+    file: scanDir + "%C4lvrospolska_efter_Anders_Eriksson_Moberg_c01628.abc",
+    instrument
+  });
+  debug(transposed);
+  assert.deepEqual(transposed,  {
+    state: 'incompatible_and_out_of_range',
+    isFromFindingTransposition: false,
+    findDirection: 'down',
+    findUpAttempted: false,
+    findDownAttempted: false,
+    findCount: 2,
+    transposed: -4
+  });
+  transposed = await processFile({
     file: scanDir + "Pigan_gick_i_f%E5rahus_974194.abc",
     instrument
   });
   debug(transposed);
   assert.deepEqual(transposed,  {
-    state: 'incompatible',
-    isFromFindingTransposition: true,
+    findCount: 2,
+    findDirection: 'down',
     findDownAttempted: true,
     findUpAttempted: true,
-    findCount: 2
+    isFromFindingTransposition: true,
+    state: 'incompatible_and_out_of_range',
+    transposed: -1
   });
   transposed = await processFile({
     file: scanDir + "Olas_och_Annas_polska_beaf14.abc",
@@ -54,7 +70,7 @@ function processFile({file, instrument}) {
   });
   debug(transposed);
   assert.deepEqual(transposed,  {
-    state: 'compatible',
+    state: 'compatible_after_transposition',
     transposed: -2,
     isFromFindingTransposition: true,
     findDownAttempted: false,
@@ -67,7 +83,7 @@ function processFile({file, instrument}) {
   });
   debug(transposed);
   assert.deepEqual(transposed,  {
-    state: 'compatible',
+    state: 'compatible_after_transposition',
     transposed: 1,
     isFromFindingTransposition: true,
     findDownAttempted: false,
@@ -81,11 +97,13 @@ function processFile({file, instrument}) {
   });
   debug(transposed);
   assert.deepEqual(transposed,  {
-    state: 'incompatible',
-    isFromFindingTransposition: true,
+    findCount: 4,
+    findDirection: 'up',
     findDownAttempted: true,
     findUpAttempted: true,
-    findCount: 4
+    isFromFindingTransposition: true,
+    state: 'incompatible_and_out_of_range',
+    transposed: 1
   });
   instrument.canPlayUnpluggedGroupsIndividually = true;
   transposed = await processFile({
@@ -94,7 +112,7 @@ function processFile({file, instrument}) {
   });
   debug(transposed);
   assert.deepEqual(transposed,  {
-    state: 'compatible',
+    state: 'compatible_after_transposition',
     transposed: -2,
     isFromFindingTransposition: true,
     findDownAttempted: false,
@@ -107,7 +125,7 @@ function processFile({file, instrument}) {
   });
   debug(transposed);
   assert.deepEqual(transposed,  {
-    state: 'compatible',
+    state: 'compatible_after_transposition',
     transposed: 1,
     isFromFindingTransposition: true,
     findDownAttempted: false,
@@ -121,7 +139,7 @@ function processFile({file, instrument}) {
   });
   debug(transposed);
   assert.deepEqual(transposed,  {
-    state: 'compatible',
+    state: 'compatible_after_transposition',
     transposed: -2,
     isFromFindingTransposition: true,
     findDownAttempted: false,

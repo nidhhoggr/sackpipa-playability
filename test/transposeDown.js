@@ -40,11 +40,11 @@ function run({file, instrument}) {
     instrument
   });
   assert.deepEqual(transposed, {
-      findCount: 0,
+      findCount: 2,
       findDownAttempted: false,
       findUpAttempted: false,
       isFromFindingTransposition: false,
-      state: 'compatible',
+      state: 'compatible_after_transposition',
       transposed: -3
   });
 })();

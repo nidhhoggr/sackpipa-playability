@@ -51,6 +51,34 @@ function Instrument({
   this.isSecondGroupPlugged = isSecondGroupPlugged;
   this.tuningKeyIndex = tuningKeyIndex;
   this.tuningKey = this.possibleTunings[tuningKeyIndex];
+  this.setPitchRange();//needs to be called again if any change to instrument are made at run time 
+}
+
+module.exports = {
+  Instrument,
+  possibleTunings,
+  playableExtraNotesOptions  
+}
+
+//@TODO handle cases for other tunings because EA
+Instrument.prototype.setKeyMode= function(keyMode,{eAShouldIncludeDb = false}) {
+  if (keyMode == "MINOR") {
+    this.isFirstGroupPlugged = true;
+    if (this.tuningKeyIndex == 0 && eAShouldIncludeDb) this.playableExtraNotes["Db"] = [61];
+  }
+  else if(keyMode == "MAJOR") {
+    this.isFirstGroupPlugged = false;
+    if (this.tuningKeyIndex == 0 && eAShouldIncludeDb) this.playableExtraNotes["Db"] = [61, 73];
+  }
+  else if(keyMode == "BOTH") {
+    this.isFirstGroupPlugged = false;
+    this.canPlayUnpluggedGroupsIndividually = true;
+    if (this.tuningKeyIndex == 0 && eAShouldIncludeDb) this.playableExtraNotes["Db"] = [61, 73];
+  }
+  this.setPitchRange();
+}
+
+Instrument.prototype.setPitchRange = function getTuningKeyAbbr() {
   const playableNotes = this.getPlayableNotes({pitchesOnly: true});
   const minPlayableNote = _.min(playableNotes);
   const maxPlayableNote = _.max(playableNotes);
@@ -59,12 +87,6 @@ function Instrument({
     max: maxPlayableNote,
     total: maxPlayableNote - minPlayableNote
   }
-}
-
-module.exports = {
-  Instrument,
-  possibleTunings,
-  playableExtraNotesOptions  
 }
 
 Instrument.prototype.getTuningKeyAbbr = function getTuningKeyAbbr() {
@@ -200,10 +222,10 @@ Instrument.prototype.getPlayableNotes = function getPlayableNotes({tuningKey, no
       ]
     }
     else if (pitchesOnly) {
-      notes = [
+      notes = _.uniq([
         ..._.flatten(_.values(notes)),
         ..._.flatten(_.values(this.playableExtraNotes))
-      ]
+      ]);
     }
   }
   else {
@@ -211,7 +233,7 @@ Instrument.prototype.getPlayableNotes = function getPlayableNotes({tuningKey, no
       notes = _.keys(notes)
     }
     else if (pitchesOnly) {
-      notes = _.flatten(_.values(notes));
+      notes = _.uniq(_.flatten(_.values(notes)));
     }
   }
     
@@ -254,6 +276,16 @@ Instrument.prototype.setTuningKey = function setTuningKey(tuningKey = null) {
     this.tuningKey = tuningKey;
     this.tuningKeyIndex = _.indexOf(this.possibleTunings, tuningKey);
   }
+}
+
+Instrument.prototype.getSongPadding = function({compatibility}) {
+  const topPadding = this.pitchRange.max - compatibility.pitchRange.max;
+  const bottomPadding = compatibility.pitchRange.min - this.pitchRange.min;
+  return {
+    top: topPadding,
+    bottom: bottomPadding,
+    has: () => (topPadding !== 0 || bottomPadding !== 0)
+  };
 }
 
 Instrument.prototype.getTuningKeyByIndex = function getTuningKeyByIndex(tuningKeyIndex) {

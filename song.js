@@ -287,11 +287,13 @@ ABCSong.prototype.setTranspositionUsingAbcjs = function(semitones, cb) {
 
 ABCSong.prototype.setNoteSequence = function({onFinish, onError}) {
   this.entireNoteSequence = [];
+  this.voiceCount = 0;
   const lines = this.rendered.lines;
   if (!lines.length) return onError(new Error("this song is lineless"))
   lines.map((l, k) => {
     if (!l.staff) return;
     try {
+      if(!this.voiceCount) this.voiceCount = l.staff.length;
       l.staff[0].voices[0].map((line, j) => {
         const notes = l.staff[0].voices[0];
         if (line.midiPitches) {

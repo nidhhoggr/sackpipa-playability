@@ -4,3 +4,4 @@ scrapers/
 case.js
 *.bash
 *.log
+test/test.js

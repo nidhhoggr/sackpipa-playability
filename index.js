@@ -23,13 +23,14 @@ const instrument = new Instrument({
 const scanDir = process.env.SCANDIR;
 
 const casesReached = {
-  "one": 0,
-  "two": 0,
-  "three": 0,
-  "four": 0
+  "one": 0,//compatible
+  "two": 0,//can be transposed to be in range
+  "three": 0,//not compatible and not in range
+  "four": 0//in range but not compatible
 }
 
 function allCasesReached() {
+  return false;
   for (i in casesReached) {
     if (casesReached[i] == 0) {
       return false;
