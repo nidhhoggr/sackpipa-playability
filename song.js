@@ -291,9 +291,20 @@ ABCSong.prototype.setNoteSequence = function({onFinish, onError}) {
   const lines = this.rendered.lines;
   if (!lines.length) return onError(new Error("this song is lineless"))
   lines.map((l, k) => {
-    if (!l.staff) return;
+    //debug({l, k});
+    if (!l.staff) {
+      if (lines.length == k + 1) onFinish();
+      return;
+    }
     try {
       if(!this.voiceCount) this.voiceCount = l.staff.length;
+      //debug(l.staff[0].voices[0].length);
+      const voiceLength = l.staff[0].voices[0].length;
+      if (!voiceLength) {
+        //in one scenario a tab had no voices and failed to iterate on the 5th when it had 6
+        //folkwiki/abc/Allegretto_ma_non_Troppo_635369.abc
+        onFinish();
+      }
       l.staff[0].voices[0].map((line, j) => {
         const notes = l.staff[0].voices[0];
         if (line.midiPitches) {
@@ -309,11 +320,13 @@ ABCSong.prototype.setNoteSequence = function({onFinish, onError}) {
             });
           }
         }
+        //debug(lines.length, k, j);
         if(lines.length == k + 1 && notes.length == j + 1) {
           onFinish();
         }
       });
     } catch(err) {
+      debug(err.message, err.stack);
       onError(err);
     }
   });
