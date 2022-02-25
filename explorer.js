@@ -157,7 +157,7 @@ function findCompatibility({
           state += "_after_transposition";
         }
         debug(`${msg}: ${file}`); 
-        cb({state, transposed, isFromFindingTransposition, findDownAttempted, findUpAttempted, findCount});
+        cb({state, compatibility, transposed, isFromFindingTransposition, findDownAttempted, findUpAttempted, findCount});
       }
       else if(!compatibility.isSongInRange()) {
         if(isFromFindingTransposition) {
@@ -195,7 +195,8 @@ function findCompatibility({
             }) => {
               debug("song is out of range and not compatible (up or down): " + file);
               cb({
-                state: "incompatible_and_out_of_range", 
+                state: "incompatible_and_out_of_range",
+                compatibility,
                 isFromFindingTransposition,
                 findDirection,
                 findUpAttempted,
@@ -218,6 +219,7 @@ function findCompatibility({
             debug(compatibility, instrument);
             return cb({
               state: "incompatible_and_out_of_range",
+              compatibility,
               isFromFindingTransposition,
               findDirection,
               findUpAttempted,
@@ -248,6 +250,7 @@ function findCompatibility({
             debug("the song is not compatible, and not in range: " + file);
             return cb({
               state: "incompatible_but_in_range",
+              compatibility,
               isFromFindingTransposition,
               findDirection,
               findUpAttempted,
@@ -259,7 +262,7 @@ function findCompatibility({
         }
         else {
           debug("the song is not compatible, and not in range: " + file);
-          cb({state: "incompatible_and_out_of_range"});
+          cb({state: "incompatible_and_out_of_range", compatibility});
         }
       }
       else if (!compatibility.isCompatible) {
@@ -269,6 +272,7 @@ function findCompatibility({
           debug("song is in range but is not compatible (no padding): " + file);
           return cb({
             state: "incompatible_but_in_range",
+            compatibility,
             isFromFindingTransposition,
             findDirection,
             findUpAttempted,
