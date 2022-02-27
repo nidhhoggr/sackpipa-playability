@@ -1,7 +1,7 @@
 const {readdir} = require("fs/promises");
-const abcjs = require("./abcjs");
 const _ = require("lodash");
 const debug = require("debug")("sp");
+const abcjs = require("./abcjs");
 const { Instrument } = require("./instrument");
 const ABCSong = require("./song");
 

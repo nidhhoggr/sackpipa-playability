@@ -1,10 +1,10 @@
-const abcjs = require("./../abcjs");
+const abcjs = require("./../modules/abcjs");
 const _ = require("lodash");
 const debug = require("debug")("sp:test");
-const { Instrument } = require("./../instrument");
-const ABCSong = require("./../song");
+const { Instrument } = require("./../modules/instrument");
+const ABCSong = require("./../modules/song");
 const assert = require("assert");
-const { findCompatibility } = require("./../explorer");
+const { findCompatibility } = require("./../modules/explorer");
 
 const instrument = new Instrument({
   tuningKey: "E/A",
@@ -28,7 +28,10 @@ function run({file, instrument}) {
       file,
       abcjs,
       onFinish: ({abcSong}) => {
-        findCompatibility({instrument, abcSong, file, cb: resolve});
+        findCompatibility({instrument, abcSong, file, cb: (res) => {
+          delete res.compatibility;
+          resolve(res);
+        }});
       }
     });
   });

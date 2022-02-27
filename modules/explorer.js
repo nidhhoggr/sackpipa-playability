@@ -143,7 +143,7 @@ function findCompatibility({
   findDirection = null, 
   findDownAttempted = false, 
   findUpAttempted = false,
-  findCount = 0
+  findCount = 0,
 }) {
   abcSong.setNoteSequence({
     onFinish: () => {
@@ -324,6 +324,7 @@ function findCompatibility({
               debug("song is in range but is not compatible (up or down): " + file);
               cb({
                 state: "incompatible_but_in_range",
+                compatibility,
                 isFromFindingTransposition,
                 findDirection,
                 findUpAttempted,

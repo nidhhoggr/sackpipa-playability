@@ -9,7 +9,10 @@
   "dependencies": {
     "abc-transposer": "^1.1.0",
     "debug": "^4.3.3",
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.21",
+    "pg": "^8.7.3",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.17.0"
   },
   "scripts": {
     "test": "cd test && ./run.sh"

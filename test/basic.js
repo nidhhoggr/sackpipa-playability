@@ -1,9 +1,9 @@
 const fs = require("fs");
-const abcjs = require("./../abcjs");
+const abcjs = require("./../modules/abcjs");
 const _ = require("lodash");
 const debug = require("debug")("sp:test");
-const { Instrument } = require("./../instrument");
-const ABCSong = require("./../song");
+const { Instrument } = require("./../modules/instrument");
+const ABCSong = require("./../modules/song");
 const assert = require("assert");
 
 const instrumentOptions = {
