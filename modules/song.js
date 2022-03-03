@@ -37,11 +37,13 @@ function ABCSong({
   if (file) {
     loadFromFile(file, (abc) => {
       this.abc = abc;
+      this.abc_orig = abc;
       this.load({onFinish});
     });
   }
   else if(rendered || abc) {
     this.abc = abc;
+    this.abc_orig = abc;
     this.rendered = rendered;
     this.load({onFinish});
   }
