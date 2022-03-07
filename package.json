@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "abc-transposer": "^1.1.0",
+    "csv-parse": "^5.0.4",
     "debug": "^4.3.3",
     "lodash": "^4.17.21",
     "pg": "^8.7.3",
