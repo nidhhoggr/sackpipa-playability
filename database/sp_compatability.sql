@@ -7,7 +7,9 @@ CREATE TABLE public.sp_compatibility (
     compatability_json json,
     explored_json json,
     pitches integer[],
-    incompatible_pitches integer[]
+    incompatible_pitches integer[],
+    inc_pitch_length integer,
+    transposed_by integer
 );
 
 ALTER TABLE public.sp_compatibility OWNER TO sandbox_user;

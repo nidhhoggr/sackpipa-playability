@@ -5,3 +5,8 @@ case.js
 *.bash
 *.log
 test/test.js
+scripts/generated/*.abc
+analysis/dist/js/tabulator/css/
+analysis/dist/abc
+analysis/deploy*.sh
+TODO

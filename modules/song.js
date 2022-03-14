@@ -108,7 +108,12 @@ ABCSong.prototype.load = function({onFinish} = {}) {
         this.media = this.media || line.substring(2);
         break;
       case "Tune Title":
-        this.name = this.name || line.substring(2);
+        if (this.name) {
+          this.name = this.name + " " + line.substring(2);
+        }
+        else {
+          this.name = line.substring(2);
+        }
         break;
     }
     if(isLastLine) {

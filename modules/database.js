@@ -121,6 +121,12 @@ const modelDefinitions = {
       incompatible_pitches: {
         type: DataTypes.ARRAY(DataTypes.INTEGER)
       },
+      transposed_by: {
+        type: DataTypes.INTEGER,
+      },
+      soft_delete: {
+        type: DataTypes.BOOLEAN,
+      }
     },
     options: {
       timestamps: false
