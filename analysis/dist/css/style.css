@@ -383,6 +383,11 @@ i.fa:hover {
   opacity: 0.5
 }
 
-.compatible-filter-item, .incompatible-filter-item {
-  margin-bottom: 150px;
+.item-key-mode-incompatibility {
+  margin-top: 150px;
+}
+
+.compatible-filter-item, 
+.incompatible-filter-item {
+  display: none;
 }
