@@ -167,11 +167,11 @@ window.onload = () => {
   }
 
   const headerTooltips = {
-    "id": "The composite key of the compatibility record to the song by the keymode. Click this cell to open the song in the FolkTabs Sackpipa player.",
+    "id": "The composite key of the compatibility record to the song by the keymode. Click this cell to open the song in the FolkTabs Säckpipa player.",
     "fw_link_id": "The FolkWiki.se page of the song. Click this cell to open the in FolkWiki.se",
-    "key_mode": "Whether or not the scallop needs to be plugged. Minor requires plugging the middle finger scallop whereas Major requires unplugging. If the song is Both, than the scallop must be unplugged but requires covering the top hole of the scallop for the required notes.",
+    "key_mode": "Whether or not the scallop needs to be plugged. Minor requires plugging the middle finger scallop whereas Major requires unplugging. If the song is Both, then the scallop must be unplugged but requires covering the top hole of the scallop for the required notes.",
     "inc_pitch_length": "How many disctict incompatible notes occur in the song.",
-    "incompatible_pitches": "The particular pitches that are incompatible which occur in the song",
+    "incompatible_pitches": "The particular pitches that are incompatible which occur in the song. Hover over the cell to get the note names.",
     "transposed_by": "How many steps the song had to be transposed in order to become compatible with the chanter. Click this cell to view the modified transposed ABC file."
   }
 
