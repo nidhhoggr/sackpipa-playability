@@ -1,5 +1,8 @@
 canvas {
   background-color: #f2f2f2;
+  width: 80%;
+  min-width: 650px;
+  min-height: 500px;
 }
 body {
     background-color: #333333;
@@ -23,9 +26,9 @@ h3 {
 }
 
 .tm-site-logo {
-    width: 300px;
-    height: 300px;
-    border: 7px solid white;
+    width: 175px;
+    height: 175px;
+    border: 2px solid white;
     display: inline-block;
     vertical-align: middle;
     background-image: url(../img/logo.png);
@@ -37,8 +40,9 @@ h3 {
 }
 
 .tm-site-title {
-    display: inline-block;
+    display: block;
     vertical-align: middle;
+    margin-top: 50px;
     margin-bottom: 0;
     color: #e8b024;
 }

@@ -320,7 +320,7 @@ window.onload = () => {
             {column:"inc_pitch_length", dir:"asc"},
         ],
         columns:[                 //define the table columns
-            {title:"ID", field:"id", openFolktabsFromCompatibilityId, headerTooltip},
+            {title:"ID", field:"id", cellClick: openFolktabsFromCompatibilityId, headerTooltip},
             {title:"Name", field:"abc_name", headerFilter: true},
             //{title:"State", field:"state"},
             {title:"FolkWiki", field:"fw_link_id", cellClick: openFolkWikiFromId, headerTooltip},

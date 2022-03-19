@@ -78,7 +78,7 @@ Instrument.prototype.setKeyMode= function(keyMode,{eAShouldIncludeDb = false}) {
   this.setPitchRange();
 }
 
-Instrument.prototype.setPitchRange = function getTuningKeyAbbr() {
+Instrument.prototype.setPitchRange = function setPitchRange() {
   const playableNotes = this.getPlayableNotes({pitchesOnly: true});
   const minPlayableNote = _.min(playableNotes);
   const maxPlayableNote = _.max(playableNotes);
