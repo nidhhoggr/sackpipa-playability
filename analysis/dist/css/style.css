@@ -1,15 +1,17 @@
+html {
+  scroll-behavior: smooth;
+}
+
 canvas {
   background-color: #f2f2f2;
-  width: 80%;
-  min-width: 650px;
-  min-height: 500px;
 }
+
 body {
     background-color: #333333;
     color: #FFFFFF;
     font-family: 'Open Sans', Helvetica, Arial, sans-serif;
     font-weight: 300;
-    overflow-x: hidden;
+    //overflow-x: hidden;
 }
 
 h1,
@@ -53,52 +55,11 @@ h3 {
     margin-bottom: 0;
 }
 
-#tm-video-loader {
-    border: 5px solid #f3f3f3;
-    -webkit-animation: spin 1s linear infinite;
-    animation: spin 1s linear infinite;
-    border-top: 5px solid #555;
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    position: absolute;
-    top: 0; left: 0; bottom: 0; right: 0;
-    margin: auto;
-}
-
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
 
-.tm-video-container {
-    position: relative;
-    max-width: 1280px;
-    max-height: 640px;
-    overflow-y: hidden;
-}
-
-.tm-video-text {
-    display: inline-block;
-}
-
-.tm-welcome-video {
-    max-width: 100%;
-    min-width: 100%;
-    min-height: 100%;
-    width: auto;
-    height: auto;
-    z-index: -100;
-    background-color: black;
-    background-size: cover;
-    transition: 1s opacity;
-}
-
-.tm-video-text-overlay {
-    position: absolute;
-    left: 60%;
-    bottom: 30px;
-}
 .tm-video-text-overlay h1 {
 	font-size: 3.4rem;
 }
@@ -211,67 +172,6 @@ hr {
     margin-top: 85px;
 }
 
-.tm-contact-form {
-    max-width: 500px;
-}
-
-.form-control {
-    border-radius: 0;
-    border-color: #666666;
-	color: #CCC;
-    background: transparent;
-    padding: 12px 15px;
-}
-
-.form-control::placeholder {
-    /* Chrome, Firefox, Opera, Safari 10.1+ */
-    color: #CCCCCC;
-    opacity: 1;
-    /* Firefox */
-}
-
-.form-control:-ms-input-placeholder {
-    /* Internet Explorer 10-11 */
-    color: #DDDDDD;
-}
-
-.form-control::-ms-input-placeholder {
-    /* Microsoft Edge */
-    color: #DDDDDD;
-}
-
-iframe {
-    max-width: 100%;
-}
-
-#google-map {
-    max-width: 500px;
-    width: 100%;
-    height: 300px;
-}
-
-.tm-btn-send {
-    border-radius: 0;
-    font-size: 1.1rem;
-    padding: 12px 50px;
-    background: transparent;
-    border: 1px solid #CCCCCC;
-    color: #CCCCCC;
-}
-
-.tm-btn-send:hover,
-.tm-btn-send:focus {
-    background: #CCCCCC;
-    color: #333333;
-}
-
-.form-control:focus {
-    background-color: transparent;
-    border-color: #CCCCCC;
-	color: #FFF;
-    box-shadow: 0 0 0 0.2rem #cccccc14;
-}
-
 input,
 textarea,
 [contenteditable] {
@@ -282,62 +182,28 @@ p {
     line-height: 1.9;
 }
 
+.container {
+  max-width: fit-content !important;
+}
+
 @media (min-width: 1200px) {
     .container {
         max-width: 1310px;
     }
-    .tm-container-2 {
-        max-width: 1170px;
-    }
+    .tm-container-2 {}
 }
 
-@media (max-width: 1199px) {
-    .tm-video-container {
-        max-width: 932px;
-        max-height: 466px;
-    }
-    .tm-video-text-overlay {
-        left: 60%;
-    }
-}
+//@media (max-width: 1199px) {}
 
 @media (max-width: 991px) {
-    #google-map,
-    .tm-contact-form {
-        max-width: 100%;
-    }
-    .google-map-iframe {
-        width: 100%;
-    }
-    .tm-video-container {
-        max-width: 690px;
-        max-height: 345px;
-    }
-    .tm-video-text-overlay {
-        left: 45%;
-    }
-	.tm-video-text-overlay h1 {
-		font-size: 2.8rem;
-	}
-    .tm-timeline-item {
-        margin-left: 25px;
-    }
+  .tm-timeline-item {
+    margin-left: 25px;
+  }
 }
 
 @media (max-width: 767px) {
     .tm-timeline-item {
         margin-left: 0;
-    }
-    .tm-video-container {
-        max-width: 510px;
-        max-height: 255px;
-    }
-    .tm-video-container,
-    .tm-welcome-video {
-        min-height: 220px;
-    }
-    .tm-video-text-overlay {
-        left: 25%;
     }
 }
 
@@ -355,28 +221,8 @@ p {
     }
 }
 
-@media (max-width: 575px) {
-    .container {
-        max-width: 540px;
-    }
-    .tm-video-text-overlay {
-        left: 30%;
-    }
-    .tm-video-text-overlay h1 {
-        font-size: 1.8rem;
-    }
-}
-
-
-@media (max-width: 480px) {
-    .tm-video-container {
-        overflow-x: hidden;
-    }
-    .tm-welcome-video {
-        min-width: auto;
-        max-width: 125%;
-    }
-}
+//@media (max-width: 575px) {}
+//@media (max-width: 480px) {}
 
 i.fa {
   padding-right: 20px;
@@ -387,11 +233,120 @@ i.fa:hover {
   opacity: 0.5
 }
 
-.item-key-mode-incompatibility {
-  margin-top: 150px;
+.item-key-mode-incompatibility,
+#item-full-incompatible {
+  margin-top: 100px;
 }
 
 .compatible-filter-item, 
 .incompatible-filter-item {
   display: none;
+  opacity: 0;
+  transition: opacity 2000ms;
+}
+
+.compatible-filter-item.scrolled,
+.incompatible-filter-item.scrolled {
+  opacity: 1;
+}
+
+.chart-container {
+  margin: auto;
+  height: 80vh;
+  width: 80vw;
+  max-width: 780px;
+  max-height: 945px;
+}
+
+@font-face {
+  font-family: cursive2;
+  src: url(./../fonts/cursive.ttf);
+}
+
+.vanillajs {
+    font-family: cursive2;
+    color: #9e946e;
+    font-size: 120%;
+    padding-right: 0.1em;
+}
+
+img.clickToZoom:hover {opacity: 0.7;}
+
+img.clickToZoom {
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+  display: block;
+  margin-left: auto;
+  margin-right: auto
+}
+
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 99; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+}
+
+.modal-content {
+  margin: auto;
+  display: block;
+  width: 75%;
+  //max-width: 75%;
+}
+
+
+#caption {
+  margin: auto;
+  display: block;
+  width: 80%;
+  max-width: 700px;
+  text-align: center;
+  color: #ccc;
+  padding: 10px 0;
+  height: 150px;
+}
+
+@-webkit-keyframes zoom {
+  from {-webkit-transform:scale(1)}
+  to {-webkit-transform:scale(2)}
+}
+@keyframes zoom {
+  from {transform:scale(0.4)}
+  to {transform:scale(1)}
+}
+
+@-webkit-keyframes zoom-out {
+  from {transform:scale(1)}
+  to {transform:scale(0)}
+}
+@keyframes zoom-out {
+  from {transform:scale(1)}
+  to {transform:scale(0)}
+}
+
+/* Add Animation */
+.modal-content, #caption {
+  -webkit-animation-name: zoom;
+  -webkit-animation-duration: 0.6s;
+  animation-name: zoom;
+  animation-duration: 0.6s;
+}
+
+.out {
+  animation-name: zoom-out;
+  animation-duration: 0.6s;
+}
+
+@media only screen and (max-width: 700px){
+  .modal-content {
+    width: 100%;
+  }
 }

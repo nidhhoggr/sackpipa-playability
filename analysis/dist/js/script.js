@@ -11,11 +11,41 @@ window.onload = () => {
     }
   }
 
+  const compatibility_filter_text = {
+    0: [{
+      title: "Compatible - Inclusively Minor and Major", 
+      description: "These are songs that were compatible with the e/A chanter as-is with no transposition necessary. They also require playing modulating C and Db with the scallop unplugged on the top middle finger."
+    },{
+      title: "Compatible After Transposition - Inclusively Minor and Major",
+      description: "These are songs that are compatible with the e/A chanter only after transposing the song however many necessary steps up/down. They also require playing modulating C and Db with the scallop unplugged on the top middle finger."
+    }],
+    1: [{
+      title: "Compatible - Exclusively Major",
+      description: "These are songs that were compatible with the e/A chanter as-is with no transposition necessary. They require the top middle finger scallop unplugged to play Db."
+    },{
+      title: "Compatible After Transposition - Exclusively Major",
+      description: "These are songs that are compatible with the e/A chanter only after transposing the song however many necessary steps up/down. They require the top middle finger scallop unplugged to play Db."
+    },{
+      title: "Incompatible But In Range - Major",
+      description: "These are songs that were found to be incomaptible (but in range) against the e/A chanter in Major key. Because they fall within the range of the chanter it may be possible to tranpose them up or down, or slightly modify them to fit the chanter."
+    }],
+    2: [{
+      title: "Compatible - Exclusively Minor",
+      description: "These are songs that were compatible with the e/A chanter as-is with no transposition necessary. They require the top middle finger scallop plugged to play C."
+    },{
+      title: "Compatible After Transposition - Exclusively Minor",
+      description: "These are songs that are compatible with the e/A chanter only after transposing the song however many necessary steps up/down. They require the top middle finger scallop plugged to play C."
+    },{
+      title: "Incompatible But In Range - Minor",
+      description: "These are songs that were found to be incomaptible (but in range) against the e/A chanter in the Major key. Because they fall within the range of the chanter it may be possible to tranpose them up or down, or slightly modify them to fit the chanter."
+    }]
+  }
+
   const kmc_ctx = document.getElementById('key_mode_chart').getContext('2d');
   const kmc_chart = new Chart(kmc_ctx, {
       type: 'bar',
       data: {
-          labels: ['Both', 'Major', 'Minor'],
+          labels: ['Modulating', 'Major', 'Minor'],
           datasets: [
             {
               label: 'Compatible',
@@ -41,14 +71,24 @@ window.onload = () => {
         ]
       },
       options: {
+          maintainAspectRatio: false,
           onClick: (e, activeEl, chart) => {
             if (activeEl[0]) {
               const {datasetIndex, index} = activeEl[0];
               const func = (datasetIndex == 2) ? incompatible : compatible;
-              document.querySelector(".compatible-filter-item").setAttribute("style","display: block"); 
-              func({el:"#compatible-filter-table", options: {paginationSize: 10}, filter: (data) => {
+              const cfi = document.querySelector(".compatible-filter-item");
+              cfi.classList.remove("scrolled");
+              cfi.setAttribute("style","display: block");
+              setTimeout(() => {
+                cfi.classList.add("scrolled");
+                cfi.scrollIntoView();
+              }, 500);
+              const {title, description} = compatibility_filter_text[index][datasetIndex];
+              document.getElementById("item-cf-title").innerText = title; 
+              document.getElementById("item-cf-description").innerText = description; 
+              func({el:"#compatible-filter-table", options: {paginationSize: 20}, filter: (data) => {
                 const filtered = [];
-                const key_modes = ["BOTH","MAJOR","MINOR"];
+                const key_modes = ["MODULATING","MAJOR","MINOR"];
                 return new Promise(r => {
                   for (i in data) {
                     const obj = data[i];
@@ -104,6 +144,7 @@ window.onload = () => {
         ]
       },
       options: {
+          maintainAspectRatio: false,
           plugins: {
             legend: {display: false}
           },
@@ -111,13 +152,33 @@ window.onload = () => {
           onClick: (e, activeEl) => {
             if(activeEl[0]) {
               const {index} = activeEl[0];
-              document.querySelector(".incompatible-filter-item").setAttribute("style","display: block");
-              incompatible({el:"#incompatible-filter-table", options: {paginationSize: 10, hide_inc_pitch_length: true}, filter: (data) => {
+              const ifi = document.querySelector(".incompatible-filter-item");
+              ifi.classList.remove("scrolled");
+              ifi.setAttribute("style","display: block");
+              setTimeout(() => {
+                ifi.classList.add("scrolled");
+                ifi.scrollIntoView();
+              }, 500);
+              //const {title, description} = compatibility_filter_text[index][datasetIndex]
+              const icc = index + 1;
+              let plurality = ["","was","is"];
+              if (index > 0) plurality = ["s","were","are"];
+              document.getElementById("item-if-title").innerText = `${icc} Distinct Incomaptible Note${plurality[0]}`;
+              const descriptionEl = document.getElementById("item-if-description");
+              descriptionEl.innerText = `These are the incompatible songs where ${icc} distinct incomaptible note${plurality[0]} ${plurality[1]} found. Hover over the incompatible pitches column to see the incompatible note names.`;
+              if (index < 4) {
+                descriptionEl.innerText += ` Because there ${plurality[2]} ${icc}, the song may still be generally compatible with the e/A chanter.`;
+              }
+              else {
+                descriptionEl.innerText += ` Because there ${plurality[2]} ${icc}, the song is generally incompatible with the e/A chanter.`;
+              }
+
+              incompatible({el:"#incompatible-filter-table", options: {paginationSize: 20, hide_inc_pitch_length: true}, filter: (data) => {
                 const filtered = [];
                 return new Promise(r => {
                   for (i in data) {
                     const obj = data[i];
-                    if (obj.inc_pitch_length == (index + 1)) {
+                    if (obj.inc_pitch_length == (icc)) {
                       filtered.push(obj);
                     }
                   }
@@ -169,10 +230,10 @@ window.onload = () => {
   const headerTooltips = {
     "id": "The composite key of the compatibility record to the song by the keymode. Click this cell to open the song in the FolkTabs Säckpipa player.",
     "fw_link_id": "The FolkWiki.se page of the song. Click this cell to open the in FolkWiki.se",
-    "key_mode": "Whether or not the scallop needs to be plugged. Minor requires plugging the middle finger scallop whereas Major requires unplugging. If the song is Both, then the scallop must be unplugged but requires covering the top hole of the scallop for the required notes.",
-    "inc_pitch_length": "How many disctict incompatible notes occur in the song.",
-    "incompatible_pitches": "The particular pitches that are incompatible which occur in the song. Hover over the cell to get the note names.",
-    "transposed_by": "How many steps the song had to be transposed in order to become compatible with the chanter. Click this cell to view the modified transposed ABC file."
+    "key_mode": "Key Mode: Whether or not the scallop needs to be plugged. Minor requires plugging the middle finger scallop whereas Major requires unplugging. If the song is Modulating, then the scallop must be unplugged but requires covering the top hole of the scallop for the required notes.",
+    "inc_pitch_length": "Incompatible Pitch Length: How many disctict incompatible notes occur in the song.",
+    "incompatible_pitches": "Incompatible Pitches: The particular pitches that are incompatible which occur in the song. Hover over the cell to get the note names.",
+    "transposed_by": "Transposed By: How many steps the song had to be transposed in order to become compatible with the chanter. Click this cell to view the modified transposed ABC file."
   }
 
   function headerTooltip(column) {
@@ -184,14 +245,14 @@ window.onload = () => {
 
   const defaultTabulatorOpts = {
     layout:"fitColumns",      //fit columns to width of table
-    responsiveLayout:"hide",  //hide columns that dont fit on the table
+    responsiveLayout: true,  //hide columns that dont fit on the table
     addRowPos:"top",          //when adding a new row, add it to the top of the table
     history:false,             //allow undo and redo actions on the table
     selectable: false,
     pagination:"local",       //paginate the data
     paginationSize:20,         //allow 7 rows per page of data
     paginationCounter:"rows", //display count of paginated rows in footer
-    movableColumns:true,      //allow column order to be changed
+    movableColumns: false,      //allow column order to be changed
     resizableRows:true,       //allow row order to be changed 
     columnDefaults:{
       tooltip:function(cell){
@@ -339,6 +400,29 @@ window.onload = () => {
       registerTabulatorEvents(table2);
     });
   }
+
+  const modal = document.getElementById('zoomModal');
+  // Get the image and insert it inside the modal - use its "alt" text as a caption
+  const imgs = document.querySelectorAll('.clickToZoom');
+  const modalImg = document.getElementById("img01");
+  const captionText = document.getElementById("caption");
+  imgs.forEach((img) => {
+    img.onclick = function() {
+      modal.style.display = "block";
+      modalImg.src = this.src;
+      modalImg.alt = this.alt;
+      captionText.innerHTML = this.alt;
+    }
+  });
+
+  // When the user clicks on <span> (x), close the modal
+  modal.onclick = () => {
+    img01.className += " out";
+    setTimeout(() => {
+      modal.style.display = "none";
+      img01.className = "modal-content";
+    }, 400);
+  } 
 };
 
 const pitchToNoteName = {21:"A0",22:"Bb0",23:"B0",24:"C1",25:"Db1",26:"D1",27:"Eb1",28:"E1",29:"F1",30:"Gb1",31:"G1",32:"Ab1",33:"A1",34:"Bb1",35:"B1",36:"C2",37:"Db2",38:"D2",39:"Eb2",40:"E2",41:"F2",42:"Gb2",43:"G2",44:"Ab2",45:"A2",46:"Bb2",47:"B2",48:"C3",49:"Db3",50:"D3",51:"Eb3",52:"E3",53:"F3",54:"Gb3",55:"G3",56:"Ab3",57:"A3",58:"Bb3",59:"B3",60:"C4",61:"Db4",62:"D4",63:"Eb4",64:"E4",65:"F4",66:"Gb4",67:"G4",68:"Ab4",69:"A4",70:"Bb4",71:"B4",72:"C5",73:"Db5",74:"D5",75:"Eb5",76:"E5",77:"F5",78:"Gb5",79:"G5",80:"Ab5",81:"A5",82:"Bb5",83:"B5",84:"C6",85:"Db6",86:"D6",87:"Eb6",88:"E6",89:"F6",90:"Gb6",91:"G6",92:"Ab6",93:"A6",94:"Bb6",95:"B6",96:"C7",97:"Db7",98:"D7",99:"Eb7",100:"E7",101:"F7",102:"Gb7",103:"G7",104:"Ab7",105:"A7",106:"Bb7",107:"B7",108:"C8",109:"Db8",110:"D8",111:"Eb8",112:"E8",113:"F8",114:"Gb8",115:"G8",116:"Ab8",117:"A8",118:"Bb8",119:"B8",120:"C9",121:"Db9"};

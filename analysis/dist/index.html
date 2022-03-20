@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="icon" href="img/favicon.ico" type="image/x-icon"/>
-
-    <title>Säckpipa Tune Compatibility - FolkTabs.com</title>
+    <title>Säckpipa Tune Compatibility - FolkTabs.com
+    </title>
     <!-- load CSS -->
     <link rel="stylesheet" href="css/fonts.css">
     <!-- Google web font "Open Sans" -->
@@ -15,158 +15,206 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/font-awesome.min.css">
     <link rel="stylesheet" href="js/tabulator/tabulator_modern.min.css">
-    <script src="https://unpkg.com/@popperjs/core@2"></script>
-    <script src="https://unpkg.com/tippy.js@6"></script>
+    <script charset="utf-8" src="js/popper.min.js"></script>
+    <script charset="utf-8" src="js/tippy.min.js"></script>
     <script charset="utf-8" src="js/chartjs/chart.min.js"></script>
     <script charset="utf-8" src="js/tabulator/tabulator.min.js"></script>
     <script charset="utf-8" src="js/script.js"></script>
   </head>
   <body>
-      <a href="https://github.com/nidhhoggr/sackpipa-playability" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    <a href="https://github.com/nidhhoggr/sackpipa-playability" class="github-corner" aria-label="View source on GitHub" target="_blank">
+      <svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z">
+        </path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm">
+        </path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body">
+        </path>
+      </svg>
+    </a>
+    <style>.github-corner:hover .octo-arm{
+      animation:octocat-wave 560ms ease-in-out}
+      @keyframes octocat-wave{
+        0%,100%{
+          transform:rotate(0)}
+        20%,60%{
+          transform:rotate(-25deg)}
+        40%,80%{
+          transform:rotate(10deg)}
+      }
+      @media (max-width:500px){
+        .github-corner:hover .octo-arm{
+          animation:none}
+        .github-corner .octo-arm{
+          animation:octocat-wave 560ms ease-in-out}
+      }
+    </style>
     <div class="container">
-        <div class="row">
+      <div class="row">
+        <div class="col-lg-12">
+          <header class="text-center tm-site-header">
+            <a href="https://www.folktabs.com">
+              <div class="tm-site-logo rounded-circle">
+              </div>
+            </a>
+            <h1 class="pl-4 tm-site-title">Säckpipa Tune Compatibility
+            </h1>
+          </header>
+        </div>
+      </div>
+      <div class="container tm-container-2">
+        <div class="row tm-section-mb">
+          <div class="col-lg-12">
+            <div class="tm-timeline-item item-key-mode-compatibility">
+              <div class="tm-timeline-item-inner">
+                <div class="tm-timeline-description-wrap">
+                  <div class="tm-bg-dark tm-timeline-description">
+                    <h3 class="tm-text-green tm-font-400">Key Mode Compatibility</h3>
+                    <p>
+                    The Bar Graph below provides insight on the compatibility of songs categorized by the "key mode" whether they be in Minor, Major or "modulating". Modulating is used for lack of better terms to describe songs which require playing both C and Db on the top middle finger scallop with the Db hole unplugged. Click the bars to view the songs in a filterable table. You can also <a href="#item-full-compatible">view</a> the complete dataset of compatible songs at the bottom of the page.
+                    </p>
+                    <div class="chart-container">
+                      <canvas id="key_mode_chart"></canvas>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="compatible-filter-item tm-timeline-item">
+                <div class="tm-timeline-connector-vertical">
+                </div>
+                <div class="tm-timeline-item-inner">
+                  <div class="tm-timeline-description-wrap">
+                    <div class="tm-bg-dark tm-timeline-description">
+                      <h3 class="tm-text-green tm-font-400" id="item-cf-title">Compatibity Filter</h3>
+                      <p id="item-cf-description"></p>
+                      <div id="compatible-filter-table" class="chart-container"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="tm-timeline-item item-key-mode-incompatibility">
+              <div class="tm-timeline-item-inner">
+                <div class="tm-timeline-description-wrap">
+                  <div class="tm-bg-dark-light tm-timeline-description">
+                    <h3 class="tm-text-cyan tm-font-400">Incompatible Notes</h3>
+                    <p>The Bar Graph below provides insight to incompatible songs categorized by the amount of distinct incomaptible notes. This means that songs in the first column only have one incompatible note while songs in the 14 column have 14 distinct incompatible notes. Songs which only have a few incompatible notes are likely to still be generally compatible on the chanter. The higher the amount of incompatible notes, the less likely the song will be playable on the chanter, modified or not. You can also <a href="#item-full-incompatible">view</a> the complete dataset of incompatible songs at the bottom of the page.</p>
+                    <div class="chart-container">
+                      <canvas id="incompatible_notes_chart"></canvas>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="incompatible-filter-item tm-timeline-item">
+                <div class="tm-timeline-connector-vertical">
+                </div>
+                <div class="tm-timeline-item-inner">
+                  <div class="tm-timeline-description-wrap">
+                    <div class="tm-bg-dark tm-timeline-description">
+                      <h3 class="tm-text-green tm-font-400" id="item-if-title">Incompatibity Filter</h3>
+                      <p id="item-if-description"></p>
+                      <div id="incompatible-filter-table" class="chart-container"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container tm-container-2">
+        <hr>
+        <div class="row tm-section-mb text-center">
+          <div class="col-lg-12">
+            <h2 class="pl-4 tm-site-title">Methodology</h2>
+          </div>
+        </div>
+        <div class="row tm-section-mb tm-section-mt">
+          <div id="zoomModal" class="modal">
+            <img class="modal-content" id="img01">
+            <div id="caption"></div>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-12 pr-lg-5 mb-md-0 mb-4">
+            <h3 class="mt-2 mb-3 tm-text-gray">Data Source</h3>
+            <p>FolkWiki.se, as the name suggests is a wiki with tunes on Swedish and Scandinavian folk music. The wiki is primarily intended for the abc format, but you can also upload songs in jpg and PDF formats. Although ABC may not be an ideal format to learn folk music (neither is sheet music for that matter), it has allowed me (the creator of FolkTabs.com) to programatically analyze the compatibility of songs on the limited range of the Sweidsh Bagpipe. This process if done manually would obviously take an exceedingly impractical amount of time.</p>
+            <h3 class="mt-2 mb-3 tm-text-gray">Chanter Configuration</h3>
+            <img src="./img/eaChanterDiagram.png" id="eaChanterDiagram" width="200" data-tippy-content="Click To Zoom" alt="Basic Configuration of the e/A chanter." class="clickToZoom">
+            <p>The most common chanter configuration for the Säckpipa is the e/A Chanter (image above). Depending on the maker there may be an additional hole on the bottom pinky scallop allowing one to play D and Db based on how the pinky is placed. As such, during the compatibility analysis this was also taken into consideration. An additional note that was also deemed compatible, although not conventionally available is the high F which is played by squeezing the bag on high E. All song listed as compatible take these additional 2  notes into consideration. Without these two the compatible dataset would be relatively smaller.<p>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-12 pr-lg-5 mb-md-0 mb-4">
+            <h3 class="mt-2 mb-3 tm-text-gray">d/G chanter applicability</h3>
+            <img src="./img/dgChanterDiagram.png" id="dgChanterDiagram" width="200" data-tippy-content="Click To Zoom" alt="Basic Configuration of the d/G chanter." class="clickToZoom">
+            <p>The difference between these two chanters is only with regard to the pitch, and likewise the name of the notes. Some d/G chanters have an additional hole on the top index finger scallop. This additional note was not taken into consideration during compatibility but analysis and filtering of the incompatible pitch provides little to no results for songs containing it. To understand why that is the case you can filter the complete dataset of incompatible notes with the following two steps: first filter the Incompatible Pitches by 75 (the MIDI pitch index corresponding to the note Eb), then sort the Incompatible Pitch Length in descedning order. You'll see that only songs containing 9 or more incompatibly distinct notes meet this criteria. In conclusion this dataset also applies to the d/G chanter but when taking into consideration the actual note names and/or MIDI pitch indexes, you'll need to transpose the chanter down.</p>
+            <h3 class="mt-2 mb-3 tm-text-gray">Other Chanter Configurations</h3>
+            <p>
+              While the source was FolkWiki and the chanter the ABC files were compared against is the Säckpipa, the code used to run the analysis can also be modified with a different chanter configuration. This means that the code can be used to run an analysis of any instrument (let alone different chanter configurations) as well as different data sources. While the code at the moment is not seamlessely configurable to achieve this, modification of the code is possible.
+            </p>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-12">
+            <h3 class="mt-2 mb-3 tm-text-gray">Algorithm Explained</h3>
+            <p>The process in which ideal transposition is determined is based on the following steps. First, the range of the song is caluclated. This is the difference of the lowest and highest pitch of the song. Next, the range is compared to that of the e/A chanter. If the songs range is lesser than or equal to that of the chanter, the song becomes a candidate for transposition. Next, the song is transposed up/down and compatibility is determined. If it's found to be compatible after transposing (n) steps, the song will be categorized as "compatible after transposition". If the song has no compatible transposition candidate then the amount of incompatible notes are recorded.</p><p>The next step is that there are duplicate records based on which "Key Mode" (Major, Minor or Modulating) the song was analyzed against. This is why some songs may not be compatible after transposing in one key, but will be in another. For this reason the song and each key mode anaylsis must record whether or not the song is exclusively incompatible. Only songs that are exclusivley incompatible based on the Key Mode make it to the Incompatible dataset. It's also worth noting that very few songs were within range but incomaptible. The code is available to review and/or use in the <a href="https://github.com/nidhhoggr/sackpipa-playability" target="_blank">Github Repo.</a></p>
+            <h3 class="mt-2 mb-3 tm-text-gray">What Next?</h3>
+            <p>
+              As explained, the Data Source used was FolkWiki.se for this particular dataset. There are however other respositories of ABC files that can also be analyzed against. If anyone is aware of other ABC repositories feel free to contact me. Likewise as there may be errors or furthers improvements in how the dataset is analyzed feel free to open up an issue on the <a href="https://github.com/nidhhoggr/sackpipa-playability" target="_blank">Github Repo.</a>.</p>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="container tm-container-2">
+        <hr>
+        <div class="row tm-section-mb text-center">
+          <div class="col-lg-12">
+            <h2 class="pl-4 tm-site-title">Complete Datasets</h2>
+          </div>
+        </div>
+        <div class="row tm-section-mb">
+          <div class="col-lg-12">
+            <div class=" tm-timeline-item">
+              <div class="tm-timeline-item-inner" id="item-full-compatible">
+                <div class="tm-timeline-description-wrap">
+                  <div class="tm-bg-dark tm-timeline-description">
+                    <h3 class="tm-text-green tm-font-400">Compatible Songs
+                    </h3>
+                    <p>This is the complete comprehensive list of compatible songs. Unlike the tables above which provide granularity based on the key or incompatible note count, this table allows you to filter the enitre data set by the column headers.</p>
+                    <div id="compatible-table" class="chart-container">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="tm-timeline-item-inner" id="item-full-incompatible">
+                <div class="tm-timeline-description-wrap">
+                  <div class="tm-bg-dark tm-timeline-description">
+                    <h3 class="tm-text-green tm-font-400">Incompatible Songs</h3>
+                    <p>This is the complete comprehensive list of incompatible songs. Unlike the table above which provide granularity based on the note count, this table allows you to filter the enitre data set by the column headers.</p>
+                    <div id="incompatible-table" class="chart-container">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--  row -->
+      </div>
+      <div class="row">
+        <div class="col-lg-12">
+          <hr>
+          <!-- Footer -->
+          <footer class="row mt-5 mb-5">
             <div class="col-lg-12">
-                <header class="text-center tm-site-header">
-                  <a href="https://www.folktabs.com"><div class="tm-site-logo rounded-circle"></div></a>
-                  <h1 class="pl-4 tm-site-title">Säckpipa Tune Compatibility</h1>
-                </header>
+              <p class="text-center">
+                <span class="vanillajs">Proudly Powered With <a href="http://vanilla-js.com/" target="_blank"><img src="./img/button.png"></a></span>
+              </p>
             </div>
-        </div>
-        <div class="container tm-container-2">
-            <div class="row tm-section-mb">
-                <div class="col-lg-12">
-                    <div class="tm-timeline-item item-key-mode-compatibility">
-                        <div class="tm-timeline-item-inner">
-                            <div class="tm-timeline-description-wrap">
-                                <div class="tm-bg-dark tm-timeline-description">
-                                  <h3 class="tm-text-green tm-font-400">Key Mode Compatibility</h3>
-                                  <p></p>
-                                  <canvas id="key_mode_chart" width="650" height="500"></canvas>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="compatible-filter-item tm-timeline-item">
-                            <div class="tm-timeline-connector-vertical"></div>
-                            <div class="tm-timeline-item-inner">
-                                <div class="tm-timeline-description-wrap">
-                                    <div class="tm-bg-dark tm-timeline-description">
-                                        <h3 class="tm-text-green tm-font-400">Compatibity Filter</h3>
-                                        <p></p>
-                                        <div id="compatible-filter-table"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    <div class="tm-timeline-item item-key-mode-incompatibility">
-                        <div class="tm-timeline-item-inner">
-                            <div class="tm-timeline-description-wrap">
-                                <div class="tm-bg-dark-light tm-timeline-description">
-                                  <h3 class="tm-text-cyan tm-font-400">Incompatible Notes </h3>
-                                  <p></p>
-                                  <canvas id="incompatible_notes_chart" width="650" height="500"></canvas>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="incompatible-filter-item tm-timeline-item">
-                            <div class="tm-timeline-connector-vertical"></div>
-                            <div class="tm-timeline-item-inner">
-                                <div class="tm-timeline-description-wrap">
-                                    <div class="tm-bg-dark tm-timeline-description">
-                                        <h3 class="tm-text-green tm-font-400">Incompatibity Filter</h3>
-                                        <p></p>
-                                        <div id="incompatible-filter-table"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-
-                </div>
-            </div>
-        </div>
-        <div class="container tm-container-2">
-            <hr>
-            <!--div class="row tm-section-mb tm-section-mt">
-                <div class="col-lg-4 col-md-4 col-sm-12 pr-lg-5 mb-md-0 mb-4">
-                    <h3 class="mt-2 mb-3 tm-text-gray">Open Source</h3>
-                    <p>The software is provided to all free of charge with all of the code accessible in GitHub. Feel free to contribute or use the code for your own projects.</p>
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-12 pr-lg-5 mb-md-0 mb-4">
-                    <h3 class="mt-2 mb-3 tm-text-gray">Web Compatible</h3>
-                    <p>No need for Installation. The applications are Web Compatible meaning they can be loaded from any device that has a browser. The applications are also optimized for Mobile devices with various controls to change the screen orientation and disable features that would otherwise be less-performant on a Mobile device.</p>
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-12">
-                    <h3 class="mt-2 mb-3 tm-text-gray">Web Bundles</h3>
-                    <p>You can also install the Web Bundles on your Chrome-based browser for substantial performance improvements. Web Bundles are currently in experiemental mode which require enabling the Web Bundle feature in your browser settings.</p>
-                </div>
-            </div>
-            <hr-->
-            <div class="row tm-section-mb">
-                <div class="col-lg-12">
-                    <div class=" tm-timeline-item">
-                        <div class="tm-timeline-item-inner">
-                            <div class="tm-timeline-description-wrap">
-                                <div class="tm-bg-dark tm-timeline-description">
-                                    <h3 class="tm-text-green tm-font-400">Compatible Songs</h3>
-                                    <p></p>
-                                    <div id="compatible-table"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tm-timeline-connector-vertical"></div>
-                        <div class="tm-timeline-item-inner">
-                            <div class="tm-timeline-description-wrap">
-                                <div class="tm-bg-dark tm-timeline-description">
-                                    <h3 class="tm-text-green tm-font-400">Incompatible Songs</h3>
-                                    <p></p>
-                                    <div id="incompatible-table"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--  row -->
-            <hr>
-            <!--div class="row tm-section-mt">
-                <div class="col-lg-6">
-                    <h3 class="mb-4 tm-text-gray">Our Location</h3>
-                    <div id="google-map" class="text-center mb-5">
-                   </div>
-               </div>
-               <div class="col-lg-6 mb-5">
-                <h3 class="mb-4 tm-text-gray">Contact Us</h3>
-                <form action="#contact" method="post" class="tm-contact-form">
-                    <div class="row">
-                        <div class="form-group col-xl-6">
-                            <input type="text" id="contact_name" name="contact_name" class="form-control" placeholder="Name..." required/>
-                        </div>
-                        <div class="form-group col-xl-6">
-                            <input type="email" id="contact_email" name="contact_email" class="form-control" placeholder="Email..." required/>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <textarea id="contact_message" name="contact_message" class="form-control" rows="6" placeholder="Your Message..." required></textarea>
-                    </div>
-                    <button type="submit" class="btn  tm-btn-send">Send It</button>
-                </form>
-            </div>
-        </div>
-        <hr-->
-        <!-- Footer -->
-        <footer class="row mt-5 mb-5">
             <div class="col-lg-12">
-                <p class="text-center tm-text-gray tm-copyright-text mb-0">Copyright &copy;
-                    <span class="tm-current-year">2022</span> FolkTabs.com
-                </p>
+              <p class="text-center tm-text-gray tm-copyright-text mb-0">Copyright &copy;
+                <span class="tm-current-year">2022
+                </span> FolkTabs.com
+              </p>
             </div>
-        </footer>
+          </footer>
+        </div>
+      </div>
     </div>
-    <!-- .container -->
-    <!--script src="js/script.js"></script-->
-</body>
+  </body>
 </html>
